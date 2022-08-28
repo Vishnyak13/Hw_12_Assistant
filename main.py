@@ -2,7 +2,8 @@ from collections import UserDict
 from typing import List, Tuple
 from datetime import date, datetime
 import re
-import pickle, csv
+import pickle
+import csv
 
 
 class Field:
@@ -125,9 +126,11 @@ class AddressBook(UserDict):
         with open('my_AddressBook', 'wb') as f:
             pickle.dump(self, f)
         with open('my_AddressBook.csv', 'w') as f:
-            writer = csv.writer(f)
-            for k, v in self.data.items():
-                writer.writerow([k, v])
+            columns = ["Name", "Phone"]
+            writer = csv.DictWriter(f, delimiter=",", fieldnames=columns)
+            writer.writeheader()
+            for row in self.data.items():
+                writer.writerow({"Name": row[0], "Phone": row[1]})
 
     def load_file(self):
         try:
