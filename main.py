@@ -126,11 +126,11 @@ class AddressBook(UserDict):
         with open('my_AddressBook', 'wb') as f:
             pickle.dump(self, f)
         with open('my_AddressBook.csv', 'w') as f:
-            columns = ["Name", "Phone"]
+            columns = ["Name", "Contact details"]
             writer = csv.DictWriter(f, delimiter=",", fieldnames=columns)
             writer.writeheader()
             for row in self.data.items():
-                writer.writerow({"Name": row[0], "Phone": row[1]})
+                writer.writerow({"Name": row[0], "Contact details": row[1]})
 
     def load_file(self):
         try:
